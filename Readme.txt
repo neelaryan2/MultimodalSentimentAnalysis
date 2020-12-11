@@ -12,6 +12,20 @@ Team Members :
 How to run the code?
 	
 1. Hierarchical Fusion Network
+-Trimodal
+
+	-IEMOCAP
+		- To run trimodal hfusion for iemocap upload the script 'trimodal-fusion-for-iemocap.py' to kaggle 
+
+		- Import the dataset from:  https://www.kaggle.com/alirehan/multimodal-sentiment
+
+		- Run the script
+	-MOSEI
+		- To run trimodal hfusion  for iemocap upload the script 'trimodal-fusion-for-mosei.py' to kaggle 
+
+		- Import the dataset from:  https://www.kaggle.com/alirehan/mosei-dataset-3way
+
+		- Run the script
 
 
 
