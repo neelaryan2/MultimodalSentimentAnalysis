@@ -5,8 +5,13 @@ Team Members :
 	2. Mohammad Ali Rehan 	- 180050061
 	3. Neel Aryan Gupta 	- 180050067
 
-[ADD PROJECT DESCRIPTION HERE]
-[INFORMATION ABOUT BOTH MODELS]
+Multimodal Sentiment Analysis includes taking input as feature vectors of audio, video and text of a speaking person and figuring out the emotion he/she is expressing.
+We present models that give good results by systematic integration of information across time and modalities. The models differ in the type of data they need, based on their alignment
+
+Hierarchical Fusion for word aligned data: The model first fuses the modalities in pairs by passing them through a GRU and taking their weighted sum followed by tanh. This process is again repeated at the next fusion layer.
+Finally we apply a GRU on the trimodal fused vectors and get our final representation of the utterances.
+
+Memory Fusion Network for label aligned data: The system of LSTMs helps in generating memories by exploiting temporal relationship between inputs. DMAN learns how modalities affect each other. It studies change in elements of memory vector in successive timesteps and suppresses those that remain constant. MGM is like an LSTM but here the gates are neural networks. It  learns the time dependent relation between the cross modal memories (ĉ). We concatenate the final output of LSTM and MGM and use this to predict the sentiment.
 
 
 How to run the code?
