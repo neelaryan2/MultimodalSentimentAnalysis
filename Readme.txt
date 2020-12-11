@@ -1,7 +1,7 @@
 Title - Multimodal Sentiment Analysis : Case studies and Paradigms
 
 Team Members :
-	1. Shreya Pathak 		- 180050100
+	1. Shreya Pathak 	- 180050100
 	2. Mohammad Ali Rehan 	- 180050061
 	3. Neel Aryan Gupta 	- 180050067
 
