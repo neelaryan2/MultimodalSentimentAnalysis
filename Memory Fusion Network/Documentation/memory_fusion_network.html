@@ -1,0 +1,1498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>memory_fusion_network API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>memory_fusion_network</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import tensorflow as tf
+import tensorflow.keras.backend as K
+from tensorflow.keras.layers import Input, Dense, LSTM, Concatenate, Dropout, Layer, RNN
+from tensorflow.keras.layers import Lambda, Multiply, TimeDistributed, LSTMCell
+from tensorflow.keras.models import Model, Sequential
+
+def _generate_dropout_mask(ones, rate, training=None, count=1):
+    &#34;&#34;&#34;Get the dropout mask for RNN cell&#39;s input.
+    It will create mask based on context if there isn&#39;t any existing cached
+    mask. If a new mask is generated, it will update the cache in the cell.
+    Args:
+        inputs: The input tensor whose shape will be used to generate dropout
+        mask.
+        training: Boolean tensor, whether its in training mode, dropout will be
+        ignored in non-training mode.
+        count: Int, how many dropout mask will be generated. It is useful for cell
+        that has internal weights fused together.
+    Returns:
+        List of mask tensor, generated or cached mask based on context.
+    &#34;&#34;&#34;
+    def dropped_inputs():
+        return K.dropout(ones, rate)
+
+    if count &gt; 1:
+        return [K.in_train_phase(dropped_inputs, ones, training=training) for _ in range(count)]
+    return K.in_train_phase(dropped_inputs, ones, training=training)
+
+class Mod_LSTMCELL(LSTMCell):
+    &#34;&#34;&#34;Cell class for the LSTM layer.
+    Following Arguments are present in the parent class LSTMCell, which 
+    have been used in this implementation. Reimplementation is done so 
+    that we can extract the complete hidden sequence h,c which cannot 
+    be obtained directly using the native LSTM implementation.
+    Args:
+        units: Positive integer, dimensionality of the output space.
+        activation: Activation function to use. Default: hyperbolic tangent
+            (`tanh`). If you pass `None`, no activation is applied (ie. &#34;linear&#34;
+            activation: `a(x) = x`).
+        recurrent_activation: Activation function to use for the recurrent step.
+            Default: sigmoid (`sigmoid`). If you pass `None`, no activation is applied
+            (ie. &#34;linear&#34; activation: `a(x) = x`).
+        use_bias: Boolean, (default `True`), whether the layer uses a bias vector.
+        kernel_initializer: Initializer for the `kernel` weights matrix, used for
+            the linear transformation of the inputs. Default: `glorot_uniform`.
+            recurrent_initializer: Initializer for the `recurrent_kernel` weights
+            matrix, used for the linear transformation of the recurrent state.
+            Default: `orthogonal`.
+        bias_initializer: Initializer for the bias vector. Default: `zeros`.
+        unit_forget_bias: Boolean (default `True`). If True, add 1 to the bias of
+            the forget gate at initialization. Setting it to true will also force
+            `bias_initializer=&#34;zeros&#34;`. This is recommended in Jozefowicz et al.
+        kernel_regularizer: Regularizer function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_regularizer: Regularizer function applied to
+            the `recurrent_kernel` weights matrix. Default: `None`.
+        bias_regularizer: Regularizer function applied to the bias vector. Default:
+            `None`.
+        kernel_constraint: Constraint function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_constraint: Constraint function applied to the `recurrent_kernel`
+            weights matrix. Default: `None`.
+        bias_constraint: Constraint function applied to the bias vector. Default:
+            `None`.
+        dropout: Float between 0 and 1. Fraction of the units to drop for the linear
+            transformation of the inputs. Default: 0.
+        recurrent_dropout: Float between 0 and 1. Fraction of the units to drop for
+            the linear transformation of the recurrent state. Default: 0.
+        implementation: Implementation mode, either 1 or 2.
+            Mode 1 will structure its operations as a larger number of smaller dot
+            products and additions, whereas mode 2 (default) will batch them into
+            fewer, larger operations. These modes will have different performance
+            profiles on different hardware and for different applications. Default: 2.
+    &#34;&#34;&#34;
+    def call(self, inputs, states, training=None):
+        &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+            training: Python boolean indicating whether the layer should behave in
+                training mode or in inference mode. Only relevant when dropout or
+                recurrent_dropout is used.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        &#34;&#34;&#34;
+        self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), 0, training=training, count=4)
+        self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), 0, training=training, count=4)
+        
+        if 0 &lt; self.dropout &lt; 1 and self._dropout_mask is None:
+            self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), self.dropout, training=training, count=4)
+        if (0 &lt; self.recurrent_dropout &lt; 1 and self._recurrent_dropout_mask is None):
+            self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), self.recurrent_dropout, training=training, count=4)
+
+        # dropout matrices for input units
+        dp_mask = self._dropout_mask
+        # dropout matrices for recurrent units
+        rec_dp_mask = self._recurrent_dropout_mask
+
+        h_tm1 = states[0]  # previous memory state
+        c_tm1 = states[1]  # previous carry state
+
+        if self.implementation == 1:
+            if 0 &lt; self.dropout &lt; 1.:
+                inputs_i = inputs * dp_mask[0]
+                inputs_f = inputs * dp_mask[1]
+                inputs_c = inputs * dp_mask[2]
+                inputs_o = inputs * dp_mask[3]
+            else:
+                inputs_i = inputs
+                inputs_f = inputs
+                inputs_c = inputs
+                inputs_o = inputs
+            x_i = K.dot(inputs_i, self.kernel_i)
+            x_f = K.dot(inputs_f, self.kernel_f)
+            x_c = K.dot(inputs_c, self.kernel_c)
+            x_o = K.dot(inputs_o, self.kernel_o)
+            if self.use_bias:
+                x_i = K.bias_add(x_i, self.bias_i)
+                x_f = K.bias_add(x_f, self.bias_f)
+                x_c = K.bias_add(x_c, self.bias_c)
+                x_o = K.bias_add(x_o, self.bias_o)
+
+            if 0 &lt; self.recurrent_dropout &lt; 1.:
+                h_tm1_i = h_tm1 * rec_dp_mask[0]
+                h_tm1_f = h_tm1 * rec_dp_mask[1]
+                h_tm1_c = h_tm1 * rec_dp_mask[2]
+                h_tm1_o = h_tm1 * rec_dp_mask[3]
+            else:
+                h_tm1_i = h_tm1
+                h_tm1_f = h_tm1
+                h_tm1_c = h_tm1
+                h_tm1_o = h_tm1
+            i = self.recurrent_activation(x_i + K.dot(h_tm1_i, self.recurrent_kernel_i))
+            f = self.recurrent_activation(x_f + K.dot(h_tm1_f, self.recurrent_kernel_f))
+            c = f * c_tm1 + i * self.activation(x_c + K.dot(h_tm1_c, self.recurrent_kernel_c))
+            o = self.recurrent_activation(x_o + K.dot(h_tm1_o, self.recurrent_kernel_o))
+        else:
+            if 0. &lt; self.dropout &lt; 1.:
+                inputs *= dp_mask[0]
+            z = K.dot(inputs, self.kernel)
+            if 0. &lt; self.recurrent_dropout &lt; 1.:
+                h_tm1 *= rec_dp_mask[0]
+            z += K.dot(h_tm1, self.recurrent_kernel)
+            if self.use_bias:
+                z = K.bias_add(z, self.bias)
+
+            z0 = z[:, :self.units]
+            z1 = z[:, self.units:2 * self.units]
+            z2 = z[:, 2 * self.units:3 * self.units]
+            z3 = z[:, 3 * self.units:]
+
+            i = self.recurrent_activation(z0)
+            f = self.recurrent_activation(z1)
+            c = f * c_tm1 + i * self.activation(z2)
+            o = self.recurrent_activation(z3)
+
+        h = o * self.activation(c)
+        if 0 &lt; self.dropout + self.recurrent_dropout:
+            if training is None:
+                h._uses_learning_phase = True
+        return tf.concat([h ,c_tm1, c], axis=-1), [h, c]
+
+def customLSTM(dim):
+    &#34;&#34;&#34;RNN applied over an implemented LSTM cell to output a
+    custom LSTM which can be used as a Keras Layer.
+    Args:
+        dim: defines the state size for the LSTM
+    Returns:
+        LSTM layer formed from Mod_LSTMCELL
+    &#34;&#34;&#34;
+    regularizer = tf.keras.regularizers.l1_l2(l1=1e-4, l2=1e-3)
+    cell = Mod_LSTMCELL(dim, dropout=0.5, kernel_regularizer=regularizer, recurrent_regularizer=regularizer)
+    lstm = RNN(cell, return_sequences=True)
+    return lstm
+
+
+class MultiviewGatedMemory(Layer):
+    &#34;&#34;&#34;
+    Multi-view Gated Memory is the neural component that
+    stores a history of cross-view interactions over time. It
+    acts as a unifying memory for the memories in System of
+    LSTMs. This class has been implemented as a keras Layer and
+    overloads the functions of the Layer class.
+    state_size: size(s) of state(s) used by this cell.
+    It can be represented by an Integer, a TensorShape or a tuple of Integers
+    or TensorShapes.
+    &#34;&#34;&#34;
+    def __init__(self, mem_dim, **kwargs):
+        self.state_size = mem_dim
+        super(MultiviewGatedMemory, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        &#34;&#34;&#34;Creates the variables of the layer (optional, for subclass implementers).
+        This is a method that implementers of subclasses of `Layer` or `Model`
+        can override if they need a state-creation step in-between
+        layer instantiation and layer call.
+        This is typically used to create the weights of `Layer` subclasses.
+        Args:
+            input_shape: Instance of `TensorShape`, or list of instances of
+                `TensorShape` if the layer expects a list of inputs
+                (one instance per input).
+        &#34;&#34;&#34;
+        # D_u
+        self.chat = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                Dropout(rate=0.5),
+                                Dense(self.state_size, activation=&#39;tanh&#39;),])
+        # D_gamma1
+        self.gamma1 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                  Dropout(rate=0.5),
+                                  Dense(self.state_size, activation=&#39;sigmoid&#39;),])
+        # D_gamma2
+        self.gamma2 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                  Dropout(rate=0.5),
+                                  Dense(self.state_size, activation=&#39;sigmoid&#39;),])
+
+    def call(self, inputs, states):
+        &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        &#34;&#34;&#34;
+        prev_mem = states[0]
+        both = K.concatenate([inputs, prev_mem], axis=-1)
+        g1 = self.gamma1(both)
+        g2 = self.gamma2(both)
+        cHat = self.chat(inputs)
+        step_out = g1 * prev_mem + g2 * cHat
+        return step_out, [step_out]
+    
+    def get_config(self):
+        &#34;&#34;&#34;Returns the config of the layer.
+        A layer config is a Python dictionary (serializable)
+        containing the configuration of a layer.
+        The same layer can be reinstantiated later
+        (without its trained weights) from this configuration.
+        The config of a layer does not include connectivity
+        information, nor the layer class name. These are handled
+        by `Network` (one layer of abstraction above).
+        Returns:
+            Python dictionary.
+        &#34;&#34;&#34;
+        config = super().get_config().copy()
+        config.update({
+            &#39;state_size&#39;: self.state_size,
+        })
+        return config
+
+
+def MFN_unimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the unimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 1 containing a tuple of 
+            (seq_length, feature_size) for one modality
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    # Combine all the modalities of current and previous time steps
+    cStar = Lambda(lambda x: x[:,:,dim0:])(hc0)
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0], outputs=output)
+    return model
+
+def MFN_bimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the bimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 2 containing tuples of 
+            (seq_length, feature_size) for 2 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
+    c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
+
+    maxlen, dim1 = input_shapes[1]
+    tot_dim += dim1
+    input1 = Input(shape=(maxlen, dim1), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc1 = customLSTM(dim1)(input1)
+    h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
+    c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
+    c_new1 = Lambda(lambda x: x[:,:,2*dim1:])(hc1)
+
+    # Combine all the modalities of current and previous time steps
+    c_prev = Concatenate(axis=-1)([c_prev0, c_prev1])
+    c_new = Concatenate(axis=-1)([c_new0, c_new1])
+    cStar = Concatenate(axis=-1)([c_prev, c_new])
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    h = Concatenate(axis=-1)([h0, h1])
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0, input1], outputs=output)
+    return model
+
+def MFN_trimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the trimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 3 containing tuples of 
+            (seq_length, feature_size) for 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)                
+    c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
+    c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
+
+    maxlen, dim1 = input_shapes[1]
+    tot_dim += dim1
+    input1 = Input(shape=(maxlen, dim1), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc1 = customLSTM(dim1)(input1)
+    h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
+    c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
+    c_new1 = Lambda(lambda x: x[:,:,2*dim1:])(hc1)
+
+    maxlen, dim2 = input_shapes[2]
+    tot_dim += dim2
+    input2 = Input(shape=(maxlen, dim2), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc2 = customLSTM(dim2)(input2)
+    h2 = Lambda(lambda x: x[:,:,:dim2])(hc2)
+    c_prev2 = Lambda(lambda x: x[:,:,dim2:2*dim2])(hc2)
+    c_new2 = Lambda(lambda x: x[:,:,2*dim2:])(hc2)
+
+    # Combine all the modalities of current and previous time steps
+    c_prev = Concatenate(axis=-1)([c_prev0, c_prev1, c_prev2])
+    c_new = Concatenate(axis=-1)([c_new0, c_new1, c_new2])
+    cStar = Concatenate(axis=-1)([c_prev, c_new])
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    h = Concatenate(axis=-1)([h0, h1, h2])
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem])
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0, input1, input2], outputs=output)
+    return model
+
+def MFN(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;This is just a function to abstract between the number
+    of modalities to be provided to MFN.
+    MFN can be extended to an arbitrary number of modalities.
+    Here implementation of upto 3 modalities has been done.
+    Args:
+        input_shapes: list of length atmost 3 containing tuples 
+            of (seq_length, feature_size) for upto 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    k = len(input_shapes)
+    assert k in [1, 2, 3]
+    if k == 1:
+        return MFN_unimodal(input_shapes, output_classes, mem_size=256)
+    elif k == 2:
+        return MFN_bimodal(input_shapes, output_classes, mem_size=256)
+    else:
+        return MFN_trimodal(input_shapes, output_classes, mem_size=256)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="memory_fusion_network.MFN"><code class="name flex">
+<span>def <span class="ident">MFN</span></span>(<span>input_shapes, output_classes, mem_size=256)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is just a function to abstract between the number
+of modalities to be provided to MFN.
+MFN can be extended to an arbitrary number of modalities.
+Here implementation of upto 3 modalities has been done.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>input_shapes</code></strong></dt>
+<dd>list of length atmost 3 containing tuples
+of (seq_length, feature_size) for upto 3 modalities</dd>
+<dt><strong><code>output_classes</code></strong></dt>
+<dd>the number of output classes</dd>
+<dt><strong><code>mem_size</code></strong></dt>
+<dd>the size of states of MultiviewGatedMemory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>an instance of keras Model class with the required
+architecture defined.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MFN(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;This is just a function to abstract between the number
+    of modalities to be provided to MFN.
+    MFN can be extended to an arbitrary number of modalities.
+    Here implementation of upto 3 modalities has been done.
+    Args:
+        input_shapes: list of length atmost 3 containing tuples 
+            of (seq_length, feature_size) for upto 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    k = len(input_shapes)
+    assert k in [1, 2, 3]
+    if k == 1:
+        return MFN_unimodal(input_shapes, output_classes, mem_size=256)
+    elif k == 2:
+        return MFN_bimodal(input_shapes, output_classes, mem_size=256)
+    else:
+        return MFN_trimodal(input_shapes, output_classes, mem_size=256)</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.MFN_bimodal"><code class="name flex">
+<span>def <span class="ident">MFN_bimodal</span></span>(<span>input_shapes, output_classes, mem_size=256)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the bimodal version of the Memory Fusion model.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>input_shapes</code></strong></dt>
+<dd>list of length 2 containing tuples of
+(seq_length, feature_size) for 2 modalities</dd>
+<dt><strong><code>output_classes</code></strong></dt>
+<dd>the number of output classes</dd>
+<dt><strong><code>mem_size</code></strong></dt>
+<dd>the size of states of MultiviewGatedMemory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>an instance of keras Model class with the required
+architecture defined.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MFN_bimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the bimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 2 containing tuples of 
+            (seq_length, feature_size) for 2 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
+    c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
+
+    maxlen, dim1 = input_shapes[1]
+    tot_dim += dim1
+    input1 = Input(shape=(maxlen, dim1), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc1 = customLSTM(dim1)(input1)
+    h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
+    c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
+    c_new1 = Lambda(lambda x: x[:,:,2*dim1:])(hc1)
+
+    # Combine all the modalities of current and previous time steps
+    c_prev = Concatenate(axis=-1)([c_prev0, c_prev1])
+    c_new = Concatenate(axis=-1)([c_new0, c_new1])
+    cStar = Concatenate(axis=-1)([c_prev, c_new])
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    h = Concatenate(axis=-1)([h0, h1])
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0, input1], outputs=output)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.MFN_trimodal"><code class="name flex">
+<span>def <span class="ident">MFN_trimodal</span></span>(<span>input_shapes, output_classes, mem_size=256)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the trimodal version of the Memory Fusion model.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>input_shapes</code></strong></dt>
+<dd>list of length 3 containing tuples of
+(seq_length, feature_size) for 3 modalities</dd>
+<dt><strong><code>output_classes</code></strong></dt>
+<dd>the number of output classes</dd>
+<dt><strong><code>mem_size</code></strong></dt>
+<dd>the size of states of MultiviewGatedMemory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>an instance of keras Model class with the required
+architecture defined.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MFN_trimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the trimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 3 containing tuples of 
+            (seq_length, feature_size) for 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)                
+    c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
+    c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
+
+    maxlen, dim1 = input_shapes[1]
+    tot_dim += dim1
+    input1 = Input(shape=(maxlen, dim1), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc1 = customLSTM(dim1)(input1)
+    h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
+    c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
+    c_new1 = Lambda(lambda x: x[:,:,2*dim1:])(hc1)
+
+    maxlen, dim2 = input_shapes[2]
+    tot_dim += dim2
+    input2 = Input(shape=(maxlen, dim2), dtype=&#39;float64&#39;)
+    # Same procedure is followed for each modality
+    hc2 = customLSTM(dim2)(input2)
+    h2 = Lambda(lambda x: x[:,:,:dim2])(hc2)
+    c_prev2 = Lambda(lambda x: x[:,:,dim2:2*dim2])(hc2)
+    c_new2 = Lambda(lambda x: x[:,:,2*dim2:])(hc2)
+
+    # Combine all the modalities of current and previous time steps
+    c_prev = Concatenate(axis=-1)([c_prev0, c_prev1, c_prev2])
+    c_new = Concatenate(axis=-1)([c_new0, c_new1, c_new2])
+    cStar = Concatenate(axis=-1)([c_prev, c_new])
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    h = Concatenate(axis=-1)([h0, h1, h2])
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem])
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0, input1, input2], outputs=output)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.MFN_unimodal"><code class="name flex">
+<span>def <span class="ident">MFN_unimodal</span></span>(<span>input_shapes, output_classes, mem_size=256)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the unimodal version of the Memory Fusion model.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>input_shapes</code></strong></dt>
+<dd>list of length 1 containing a tuple of
+(seq_length, feature_size) for one modality</dd>
+<dt><strong><code>output_classes</code></strong></dt>
+<dd>the number of output classes</dd>
+<dt><strong><code>mem_size</code></strong></dt>
+<dd>the size of states of MultiviewGatedMemory</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>an instance of keras Model class with the required
+architecture defined.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def MFN_unimodal(input_shapes, output_classes, mem_size=256):
+    &#34;&#34;&#34;Returns the unimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 1 containing a tuple of 
+            (seq_length, feature_size) for one modality
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    &#34;&#34;&#34;
+    tot_dim = 0
+
+    maxlen, dim0 = input_shapes[0]
+    tot_dim += dim0
+    input0 = Input(shape=(maxlen, dim0), dtype=&#39;float64&#39;)
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
+    hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
+    h = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    # Combine all the modalities of current and previous time steps
+    cStar = Lambda(lambda x: x[:,:,dim0:])(hc0)
+
+    # the self attention network referred to as DMAN
+    attention = Sequential([
+        TimeDistributed(Dense(256 ,activation=&#39;relu&#39;)),
+        Dropout(rate=0.5),
+        TimeDistributed(Dense(2*tot_dim ,activation=&#39;softmax&#39;))
+    ])(cStar)
+
+    # attention applied to the memories
+    attended = Multiply()([cStar, attention])
+    cell = MultiviewGatedMemory(mem_size)
+    lstm_cell = RNN(cell)
+    mem = lstm_cell(attended) # equation 9-11
+
+    last_hs = Lambda(lambda x: x[:,-1,:])(h)
+
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
+
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
+    output = Sequential([
+        Dense(128 ,activation=&#39;relu&#39;),
+        Dropout(rate=0.5),
+        Dense(output_classes, activation=&#39;softmax&#39;)
+    ], name=&#39;final_output&#39;)(final)
+
+    model = Model(inputs=[input0], outputs=output)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.customLSTM"><code class="name flex">
+<span>def <span class="ident">customLSTM</span></span>(<span>dim)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>RNN applied over an implemented LSTM cell to output a
+custom LSTM which can be used as a Keras Layer.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>dim</code></strong></dt>
+<dd>defines the state size for the LSTM</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>LSTM layer formed from Mod_LSTMCELL</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def customLSTM(dim):
+    &#34;&#34;&#34;RNN applied over an implemented LSTM cell to output a
+    custom LSTM which can be used as a Keras Layer.
+    Args:
+        dim: defines the state size for the LSTM
+    Returns:
+        LSTM layer formed from Mod_LSTMCELL
+    &#34;&#34;&#34;
+    regularizer = tf.keras.regularizers.l1_l2(l1=1e-4, l2=1e-3)
+    cell = Mod_LSTMCELL(dim, dropout=0.5, kernel_regularizer=regularizer, recurrent_regularizer=regularizer)
+    lstm = RNN(cell, return_sequences=True)
+    return lstm</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="memory_fusion_network.Mod_LSTMCELL"><code class="flex name class">
+<span>class <span class="ident">Mod_LSTMCELL</span></span>
+<span>(</span><span>units, activation='tanh', recurrent_activation='sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=2, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cell class for the LSTM layer.
+Following Arguments are present in the parent class LSTMCell, which
+have been used in this implementation. Reimplementation is done so
+that we can extract the complete hidden sequence h,c which cannot
+be obtained directly using the native LSTM implementation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>units</code></strong></dt>
+<dd>Positive integer, dimensionality of the output space.</dd>
+<dt><strong><code>activation</code></strong></dt>
+<dd>Activation function to use. Default: hyperbolic tangent
+(<code>tanh</code>). If you pass <code>None</code>, no activation is applied (ie. "linear"
+activation: <code>a(x) = x</code>).</dd>
+<dt><strong><code>recurrent_activation</code></strong></dt>
+<dd>Activation function to use for the recurrent step.
+Default: sigmoid (<code>sigmoid</code>). If you pass <code>None</code>, no activation is applied
+(ie. "linear" activation: <code>a(x) = x</code>).</dd>
+<dt><strong><code>use_bias</code></strong></dt>
+<dd>Boolean, (default <code>True</code>), whether the layer uses a bias vector.</dd>
+<dt><strong><code>kernel_initializer</code></strong></dt>
+<dd>Initializer for the <code>kernel</code> weights matrix, used for
+the linear transformation of the inputs. Default: <code>glorot_uniform</code>.
+recurrent_initializer: Initializer for the <code>recurrent_kernel</code> weights
+matrix, used for the linear transformation of the recurrent state.
+Default: <code>orthogonal</code>.</dd>
+<dt><strong><code>bias_initializer</code></strong></dt>
+<dd>Initializer for the bias vector. Default: <code>zeros</code>.</dd>
+<dt><strong><code>unit_forget_bias</code></strong></dt>
+<dd>Boolean (default <code>True</code>). If True, add 1 to the bias of
+the forget gate at initialization. Setting it to true will also force
+<code>bias_initializer="zeros"</code>. This is recommended in Jozefowicz et al.</dd>
+<dt><strong><code>kernel_regularizer</code></strong></dt>
+<dd>Regularizer function applied to the <code>kernel</code> weights
+matrix. Default: <code>None</code>.</dd>
+<dt><strong><code>recurrent_regularizer</code></strong></dt>
+<dd>Regularizer function applied to
+the <code>recurrent_kernel</code> weights matrix. Default: <code>None</code>.</dd>
+<dt><strong><code>bias_regularizer</code></strong></dt>
+<dd>Regularizer function applied to the bias vector. Default:
+<code>None</code>.</dd>
+<dt><strong><code>kernel_constraint</code></strong></dt>
+<dd>Constraint function applied to the <code>kernel</code> weights
+matrix. Default: <code>None</code>.</dd>
+<dt><strong><code>recurrent_constraint</code></strong></dt>
+<dd>Constraint function applied to the <code>recurrent_kernel</code>
+weights matrix. Default: <code>None</code>.</dd>
+<dt><strong><code>bias_constraint</code></strong></dt>
+<dd>Constraint function applied to the bias vector. Default:
+<code>None</code>.</dd>
+<dt><strong><code>dropout</code></strong></dt>
+<dd>Float between 0 and 1. Fraction of the units to drop for the linear
+transformation of the inputs. Default: 0.</dd>
+<dt><strong><code>recurrent_dropout</code></strong></dt>
+<dd>Float between 0 and 1. Fraction of the units to drop for
+the linear transformation of the recurrent state. Default: 0.</dd>
+<dt><strong><code>implementation</code></strong></dt>
+<dd>Implementation mode, either 1 or 2.
+Mode 1 will structure its operations as a larger number of smaller dot
+products and additions, whereas mode 2 (default) will batch them into
+fewer, larger operations. These modes will have different performance
+profiles on different hardware and for different applications. Default: 2.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Mod_LSTMCELL(LSTMCell):
+    &#34;&#34;&#34;Cell class for the LSTM layer.
+    Following Arguments are present in the parent class LSTMCell, which 
+    have been used in this implementation. Reimplementation is done so 
+    that we can extract the complete hidden sequence h,c which cannot 
+    be obtained directly using the native LSTM implementation.
+    Args:
+        units: Positive integer, dimensionality of the output space.
+        activation: Activation function to use. Default: hyperbolic tangent
+            (`tanh`). If you pass `None`, no activation is applied (ie. &#34;linear&#34;
+            activation: `a(x) = x`).
+        recurrent_activation: Activation function to use for the recurrent step.
+            Default: sigmoid (`sigmoid`). If you pass `None`, no activation is applied
+            (ie. &#34;linear&#34; activation: `a(x) = x`).
+        use_bias: Boolean, (default `True`), whether the layer uses a bias vector.
+        kernel_initializer: Initializer for the `kernel` weights matrix, used for
+            the linear transformation of the inputs. Default: `glorot_uniform`.
+            recurrent_initializer: Initializer for the `recurrent_kernel` weights
+            matrix, used for the linear transformation of the recurrent state.
+            Default: `orthogonal`.
+        bias_initializer: Initializer for the bias vector. Default: `zeros`.
+        unit_forget_bias: Boolean (default `True`). If True, add 1 to the bias of
+            the forget gate at initialization. Setting it to true will also force
+            `bias_initializer=&#34;zeros&#34;`. This is recommended in Jozefowicz et al.
+        kernel_regularizer: Regularizer function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_regularizer: Regularizer function applied to
+            the `recurrent_kernel` weights matrix. Default: `None`.
+        bias_regularizer: Regularizer function applied to the bias vector. Default:
+            `None`.
+        kernel_constraint: Constraint function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_constraint: Constraint function applied to the `recurrent_kernel`
+            weights matrix. Default: `None`.
+        bias_constraint: Constraint function applied to the bias vector. Default:
+            `None`.
+        dropout: Float between 0 and 1. Fraction of the units to drop for the linear
+            transformation of the inputs. Default: 0.
+        recurrent_dropout: Float between 0 and 1. Fraction of the units to drop for
+            the linear transformation of the recurrent state. Default: 0.
+        implementation: Implementation mode, either 1 or 2.
+            Mode 1 will structure its operations as a larger number of smaller dot
+            products and additions, whereas mode 2 (default) will batch them into
+            fewer, larger operations. These modes will have different performance
+            profiles on different hardware and for different applications. Default: 2.
+    &#34;&#34;&#34;
+    def call(self, inputs, states, training=None):
+        &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+            training: Python boolean indicating whether the layer should behave in
+                training mode or in inference mode. Only relevant when dropout or
+                recurrent_dropout is used.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        &#34;&#34;&#34;
+        self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), 0, training=training, count=4)
+        self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), 0, training=training, count=4)
+        
+        if 0 &lt; self.dropout &lt; 1 and self._dropout_mask is None:
+            self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), self.dropout, training=training, count=4)
+        if (0 &lt; self.recurrent_dropout &lt; 1 and self._recurrent_dropout_mask is None):
+            self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), self.recurrent_dropout, training=training, count=4)
+
+        # dropout matrices for input units
+        dp_mask = self._dropout_mask
+        # dropout matrices for recurrent units
+        rec_dp_mask = self._recurrent_dropout_mask
+
+        h_tm1 = states[0]  # previous memory state
+        c_tm1 = states[1]  # previous carry state
+
+        if self.implementation == 1:
+            if 0 &lt; self.dropout &lt; 1.:
+                inputs_i = inputs * dp_mask[0]
+                inputs_f = inputs * dp_mask[1]
+                inputs_c = inputs * dp_mask[2]
+                inputs_o = inputs * dp_mask[3]
+            else:
+                inputs_i = inputs
+                inputs_f = inputs
+                inputs_c = inputs
+                inputs_o = inputs
+            x_i = K.dot(inputs_i, self.kernel_i)
+            x_f = K.dot(inputs_f, self.kernel_f)
+            x_c = K.dot(inputs_c, self.kernel_c)
+            x_o = K.dot(inputs_o, self.kernel_o)
+            if self.use_bias:
+                x_i = K.bias_add(x_i, self.bias_i)
+                x_f = K.bias_add(x_f, self.bias_f)
+                x_c = K.bias_add(x_c, self.bias_c)
+                x_o = K.bias_add(x_o, self.bias_o)
+
+            if 0 &lt; self.recurrent_dropout &lt; 1.:
+                h_tm1_i = h_tm1 * rec_dp_mask[0]
+                h_tm1_f = h_tm1 * rec_dp_mask[1]
+                h_tm1_c = h_tm1 * rec_dp_mask[2]
+                h_tm1_o = h_tm1 * rec_dp_mask[3]
+            else:
+                h_tm1_i = h_tm1
+                h_tm1_f = h_tm1
+                h_tm1_c = h_tm1
+                h_tm1_o = h_tm1
+            i = self.recurrent_activation(x_i + K.dot(h_tm1_i, self.recurrent_kernel_i))
+            f = self.recurrent_activation(x_f + K.dot(h_tm1_f, self.recurrent_kernel_f))
+            c = f * c_tm1 + i * self.activation(x_c + K.dot(h_tm1_c, self.recurrent_kernel_c))
+            o = self.recurrent_activation(x_o + K.dot(h_tm1_o, self.recurrent_kernel_o))
+        else:
+            if 0. &lt; self.dropout &lt; 1.:
+                inputs *= dp_mask[0]
+            z = K.dot(inputs, self.kernel)
+            if 0. &lt; self.recurrent_dropout &lt; 1.:
+                h_tm1 *= rec_dp_mask[0]
+            z += K.dot(h_tm1, self.recurrent_kernel)
+            if self.use_bias:
+                z = K.bias_add(z, self.bias)
+
+            z0 = z[:, :self.units]
+            z1 = z[:, self.units:2 * self.units]
+            z2 = z[:, 2 * self.units:3 * self.units]
+            z3 = z[:, 3 * self.units:]
+
+            i = self.recurrent_activation(z0)
+            f = self.recurrent_activation(z1)
+            c = f * c_tm1 + i * self.activation(z2)
+            o = self.recurrent_activation(z3)
+
+        h = o * self.activation(c)
+        if 0 &lt; self.dropout + self.recurrent_dropout:
+            if training is None:
+                h._uses_learning_phase = True
+        return tf.concat([h ,c_tm1, c], axis=-1), [h, c]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tensorflow.python.keras.layers.recurrent_v2.LSTMCell</li>
+<li>tensorflow.python.keras.layers.recurrent.LSTMCell</li>
+<li>tensorflow.python.keras.layers.recurrent.DropoutRNNCellMixin</li>
+<li>tensorflow.python.keras.engine.base_layer.Layer</li>
+<li>tensorflow.python.module.module.Module</li>
+<li>tensorflow.python.training.tracking.tracking.AutoTrackable</li>
+<li>tensorflow.python.training.tracking.base.Trackable</li>
+<li>tensorflow.python.keras.utils.version_utils.LayerVersionSelector</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="memory_fusion_network.Mod_LSTMCELL.call"><code class="name flex">
+<span>def <span class="ident">call</span></span>(<span>self, inputs, states, training=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function that contains the logic for one RNN step calculation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>inputs</code></strong></dt>
+<dd>the input tensor, which is a slide from the overall RNN input by
+the time dimension (usually the second dimension).</dd>
+<dt><strong><code>states</code></strong></dt>
+<dd>the state tensor from previous step, which has the same shape
+as <code>(batch, state_size)</code>. In the case of timestep 0, it will be the
+initial state user specified, or zero filled tensor otherwise.</dd>
+<dt><strong><code>training</code></strong></dt>
+<dd>Python boolean indicating whether the layer should behave in
+training mode or in inference mode. Only relevant when dropout or
+recurrent_dropout is used.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple of two tensors:
+1. output tensor for the current timestep, with size <code>output_size</code>.
+2. state tensor for next step, which has the shape of <code>state_size</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call(self, inputs, states, training=None):
+    &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+    Args:
+        inputs: the input tensor, which is a slide from the overall RNN input by
+            the time dimension (usually the second dimension).
+        states: the state tensor from previous step, which has the same shape
+            as `(batch, state_size)`. In the case of timestep 0, it will be the
+            initial state user specified, or zero filled tensor otherwise.
+        training: Python boolean indicating whether the layer should behave in
+            training mode or in inference mode. Only relevant when dropout or
+            recurrent_dropout is used.
+    Returns:
+        A tuple of two tensors:
+            1. output tensor for the current timestep, with size `output_size`.
+            2. state tensor for next step, which has the shape of `state_size`.
+    &#34;&#34;&#34;
+    self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), 0, training=training, count=4)
+    self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), 0, training=training, count=4)
+    
+    if 0 &lt; self.dropout &lt; 1 and self._dropout_mask is None:
+        self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), self.dropout, training=training, count=4)
+    if (0 &lt; self.recurrent_dropout &lt; 1 and self._recurrent_dropout_mask is None):
+        self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), self.recurrent_dropout, training=training, count=4)
+
+    # dropout matrices for input units
+    dp_mask = self._dropout_mask
+    # dropout matrices for recurrent units
+    rec_dp_mask = self._recurrent_dropout_mask
+
+    h_tm1 = states[0]  # previous memory state
+    c_tm1 = states[1]  # previous carry state
+
+    if self.implementation == 1:
+        if 0 &lt; self.dropout &lt; 1.:
+            inputs_i = inputs * dp_mask[0]
+            inputs_f = inputs * dp_mask[1]
+            inputs_c = inputs * dp_mask[2]
+            inputs_o = inputs * dp_mask[3]
+        else:
+            inputs_i = inputs
+            inputs_f = inputs
+            inputs_c = inputs
+            inputs_o = inputs
+        x_i = K.dot(inputs_i, self.kernel_i)
+        x_f = K.dot(inputs_f, self.kernel_f)
+        x_c = K.dot(inputs_c, self.kernel_c)
+        x_o = K.dot(inputs_o, self.kernel_o)
+        if self.use_bias:
+            x_i = K.bias_add(x_i, self.bias_i)
+            x_f = K.bias_add(x_f, self.bias_f)
+            x_c = K.bias_add(x_c, self.bias_c)
+            x_o = K.bias_add(x_o, self.bias_o)
+
+        if 0 &lt; self.recurrent_dropout &lt; 1.:
+            h_tm1_i = h_tm1 * rec_dp_mask[0]
+            h_tm1_f = h_tm1 * rec_dp_mask[1]
+            h_tm1_c = h_tm1 * rec_dp_mask[2]
+            h_tm1_o = h_tm1 * rec_dp_mask[3]
+        else:
+            h_tm1_i = h_tm1
+            h_tm1_f = h_tm1
+            h_tm1_c = h_tm1
+            h_tm1_o = h_tm1
+        i = self.recurrent_activation(x_i + K.dot(h_tm1_i, self.recurrent_kernel_i))
+        f = self.recurrent_activation(x_f + K.dot(h_tm1_f, self.recurrent_kernel_f))
+        c = f * c_tm1 + i * self.activation(x_c + K.dot(h_tm1_c, self.recurrent_kernel_c))
+        o = self.recurrent_activation(x_o + K.dot(h_tm1_o, self.recurrent_kernel_o))
+    else:
+        if 0. &lt; self.dropout &lt; 1.:
+            inputs *= dp_mask[0]
+        z = K.dot(inputs, self.kernel)
+        if 0. &lt; self.recurrent_dropout &lt; 1.:
+            h_tm1 *= rec_dp_mask[0]
+        z += K.dot(h_tm1, self.recurrent_kernel)
+        if self.use_bias:
+            z = K.bias_add(z, self.bias)
+
+        z0 = z[:, :self.units]
+        z1 = z[:, self.units:2 * self.units]
+        z2 = z[:, 2 * self.units:3 * self.units]
+        z3 = z[:, 3 * self.units:]
+
+        i = self.recurrent_activation(z0)
+        f = self.recurrent_activation(z1)
+        c = f * c_tm1 + i * self.activation(z2)
+        o = self.recurrent_activation(z3)
+
+    h = o * self.activation(c)
+    if 0 &lt; self.dropout + self.recurrent_dropout:
+        if training is None:
+            h._uses_learning_phase = True
+    return tf.concat([h ,c_tm1, c], axis=-1), [h, c]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="memory_fusion_network.MultiviewGatedMemory"><code class="flex name class">
+<span>class <span class="ident">MultiviewGatedMemory</span></span>
+<span>(</span><span>mem_dim, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Multi-view Gated Memory is the neural component that
+stores a history of cross-view interactions over time. It
+acts as a unifying memory for the memories in System of
+LSTMs. This class has been implemented as a keras Layer and
+overloads the functions of the Layer class.
+state_size: size(s) of state(s) used by this cell.
+It can be represented by an Integer, a TensorShape or a tuple of Integers
+or TensorShapes.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultiviewGatedMemory(Layer):
+    &#34;&#34;&#34;
+    Multi-view Gated Memory is the neural component that
+    stores a history of cross-view interactions over time. It
+    acts as a unifying memory for the memories in System of
+    LSTMs. This class has been implemented as a keras Layer and
+    overloads the functions of the Layer class.
+    state_size: size(s) of state(s) used by this cell.
+    It can be represented by an Integer, a TensorShape or a tuple of Integers
+    or TensorShapes.
+    &#34;&#34;&#34;
+    def __init__(self, mem_dim, **kwargs):
+        self.state_size = mem_dim
+        super(MultiviewGatedMemory, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        &#34;&#34;&#34;Creates the variables of the layer (optional, for subclass implementers).
+        This is a method that implementers of subclasses of `Layer` or `Model`
+        can override if they need a state-creation step in-between
+        layer instantiation and layer call.
+        This is typically used to create the weights of `Layer` subclasses.
+        Args:
+            input_shape: Instance of `TensorShape`, or list of instances of
+                `TensorShape` if the layer expects a list of inputs
+                (one instance per input).
+        &#34;&#34;&#34;
+        # D_u
+        self.chat = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                Dropout(rate=0.5),
+                                Dense(self.state_size, activation=&#39;tanh&#39;),])
+        # D_gamma1
+        self.gamma1 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                  Dropout(rate=0.5),
+                                  Dense(self.state_size, activation=&#39;sigmoid&#39;),])
+        # D_gamma2
+        self.gamma2 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                                  Dropout(rate=0.5),
+                                  Dense(self.state_size, activation=&#39;sigmoid&#39;),])
+
+    def call(self, inputs, states):
+        &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        &#34;&#34;&#34;
+        prev_mem = states[0]
+        both = K.concatenate([inputs, prev_mem], axis=-1)
+        g1 = self.gamma1(both)
+        g2 = self.gamma2(both)
+        cHat = self.chat(inputs)
+        step_out = g1 * prev_mem + g2 * cHat
+        return step_out, [step_out]
+    
+    def get_config(self):
+        &#34;&#34;&#34;Returns the config of the layer.
+        A layer config is a Python dictionary (serializable)
+        containing the configuration of a layer.
+        The same layer can be reinstantiated later
+        (without its trained weights) from this configuration.
+        The config of a layer does not include connectivity
+        information, nor the layer class name. These are handled
+        by `Network` (one layer of abstraction above).
+        Returns:
+            Python dictionary.
+        &#34;&#34;&#34;
+        config = super().get_config().copy()
+        config.update({
+            &#39;state_size&#39;: self.state_size,
+        })
+        return config</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>tensorflow.python.keras.engine.base_layer.Layer</li>
+<li>tensorflow.python.module.module.Module</li>
+<li>tensorflow.python.training.tracking.tracking.AutoTrackable</li>
+<li>tensorflow.python.training.tracking.base.Trackable</li>
+<li>tensorflow.python.keras.utils.version_utils.LayerVersionSelector</li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="memory_fusion_network.MultiviewGatedMemory.build"><code class="name flex">
+<span>def <span class="ident">build</span></span>(<span>self, input_shape)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the variables of the layer (optional, for subclass implementers).
+This is a method that implementers of subclasses of <code>Layer</code> or <code>Model</code>
+can override if they need a state-creation step in-between
+layer instantiation and layer call.
+This is typically used to create the weights of <code>Layer</code> subclasses.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>input_shape</code></strong></dt>
+<dd>Instance of <code>TensorShape</code>, or list of instances of
+<code>TensorShape</code> if the layer expects a list of inputs
+(one instance per input).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build(self, input_shape):
+    &#34;&#34;&#34;Creates the variables of the layer (optional, for subclass implementers).
+    This is a method that implementers of subclasses of `Layer` or `Model`
+    can override if they need a state-creation step in-between
+    layer instantiation and layer call.
+    This is typically used to create the weights of `Layer` subclasses.
+    Args:
+        input_shape: Instance of `TensorShape`, or list of instances of
+            `TensorShape` if the layer expects a list of inputs
+            (one instance per input).
+    &#34;&#34;&#34;
+    # D_u
+    self.chat = Sequential([Dense(128, activation=&#39;relu&#39;),
+                            Dropout(rate=0.5),
+                            Dense(self.state_size, activation=&#39;tanh&#39;),])
+    # D_gamma1
+    self.gamma1 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                              Dropout(rate=0.5),
+                              Dense(self.state_size, activation=&#39;sigmoid&#39;),])
+    # D_gamma2
+    self.gamma2 = Sequential([Dense(128, activation=&#39;relu&#39;),
+                              Dropout(rate=0.5),
+                              Dense(self.state_size, activation=&#39;sigmoid&#39;),])</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.MultiviewGatedMemory.call"><code class="name flex">
+<span>def <span class="ident">call</span></span>(<span>self, inputs, states)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function that contains the logic for one RNN step calculation.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>inputs</code></strong></dt>
+<dd>the input tensor, which is a slide from the overall RNN input by
+the time dimension (usually the second dimension).</dd>
+<dt><strong><code>states</code></strong></dt>
+<dd>the state tensor from previous step, which has the same shape
+as <code>(batch, state_size)</code>. In the case of timestep 0, it will be the
+initial state user specified, or zero filled tensor otherwise.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>A tuple of two tensors:
+1. output tensor for the current timestep, with size <code>output_size</code>.
+2. state tensor for next step, which has the shape of <code>state_size</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def call(self, inputs, states):
+    &#34;&#34;&#34;The function that contains the logic for one RNN step calculation.
+    Args:
+        inputs: the input tensor, which is a slide from the overall RNN input by
+            the time dimension (usually the second dimension).
+        states: the state tensor from previous step, which has the same shape
+            as `(batch, state_size)`. In the case of timestep 0, it will be the
+            initial state user specified, or zero filled tensor otherwise.
+    Returns:
+        A tuple of two tensors:
+            1. output tensor for the current timestep, with size `output_size`.
+            2. state tensor for next step, which has the shape of `state_size`.
+    &#34;&#34;&#34;
+    prev_mem = states[0]
+    both = K.concatenate([inputs, prev_mem], axis=-1)
+    g1 = self.gamma1(both)
+    g2 = self.gamma2(both)
+    cHat = self.chat(inputs)
+    step_out = g1 * prev_mem + g2 * cHat
+    return step_out, [step_out]</code></pre>
+</details>
+</dd>
+<dt id="memory_fusion_network.MultiviewGatedMemory.get_config"><code class="name flex">
+<span>def <span class="ident">get_config</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the config of the layer.
+A layer config is a Python dictionary (serializable)
+containing the configuration of a layer.
+The same layer can be reinstantiated later
+(without its trained weights) from this configuration.
+The config of a layer does not include connectivity
+information, nor the layer class name. These are handled
+by <code>Network</code> (one layer of abstraction above).</p>
+<h2 id="returns">Returns</h2>
+<p>Python dictionary.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_config(self):
+    &#34;&#34;&#34;Returns the config of the layer.
+    A layer config is a Python dictionary (serializable)
+    containing the configuration of a layer.
+    The same layer can be reinstantiated later
+    (without its trained weights) from this configuration.
+    The config of a layer does not include connectivity
+    information, nor the layer class name. These are handled
+    by `Network` (one layer of abstraction above).
+    Returns:
+        Python dictionary.
+    &#34;&#34;&#34;
+    config = super().get_config().copy()
+    config.update({
+        &#39;state_size&#39;: self.state_size,
+    })
+    return config</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="memory_fusion_network.MFN" href="#memory_fusion_network.MFN">MFN</a></code></li>
+<li><code><a title="memory_fusion_network.MFN_bimodal" href="#memory_fusion_network.MFN_bimodal">MFN_bimodal</a></code></li>
+<li><code><a title="memory_fusion_network.MFN_trimodal" href="#memory_fusion_network.MFN_trimodal">MFN_trimodal</a></code></li>
+<li><code><a title="memory_fusion_network.MFN_unimodal" href="#memory_fusion_network.MFN_unimodal">MFN_unimodal</a></code></li>
+<li><code><a title="memory_fusion_network.customLSTM" href="#memory_fusion_network.customLSTM">customLSTM</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="memory_fusion_network.Mod_LSTMCELL" href="#memory_fusion_network.Mod_LSTMCELL">Mod_LSTMCELL</a></code></h4>
+<ul class="">
+<li><code><a title="memory_fusion_network.Mod_LSTMCELL.call" href="#memory_fusion_network.Mod_LSTMCELL.call">call</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="memory_fusion_network.MultiviewGatedMemory" href="#memory_fusion_network.MultiviewGatedMemory">MultiviewGatedMemory</a></code></h4>
+<ul class="">
+<li><code><a title="memory_fusion_network.MultiviewGatedMemory.build" href="#memory_fusion_network.MultiviewGatedMemory.build">build</a></code></li>
+<li><code><a title="memory_fusion_network.MultiviewGatedMemory.call" href="#memory_fusion_network.MultiviewGatedMemory.call">call</a></code></li>
+<li><code><a title="memory_fusion_network.MultiviewGatedMemory.get_config" href="#memory_fusion_network.MultiviewGatedMemory.get_config">get_config</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

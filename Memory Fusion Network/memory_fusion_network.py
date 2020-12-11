@@ -5,6 +5,19 @@ from tensorflow.keras.layers import Lambda, Multiply, TimeDistributed, LSTMCell
 from tensorflow.keras.models import Model, Sequential
 
 def _generate_dropout_mask(ones, rate, training=None, count=1):
+    """Get the dropout mask for RNN cell's input.
+    It will create mask based on context if there isn't any existing cached
+    mask. If a new mask is generated, it will update the cache in the cell.
+    Args:
+        inputs: The input tensor whose shape will be used to generate dropout
+        mask.
+        training: Boolean tensor, whether its in training mode, dropout will be
+        ignored in non-training mode.
+        count: Int, how many dropout mask will be generated. It is useful for cell
+        that has internal weights fused together.
+    Returns:
+        List of mask tensor, generated or cached mask based on context.
+    """
     def dropped_inputs():
         return K.dropout(ones, rate)
 
@@ -12,9 +25,68 @@ def _generate_dropout_mask(ones, rate, training=None, count=1):
         return [K.in_train_phase(dropped_inputs, ones, training=training) for _ in range(count)]
     return K.in_train_phase(dropped_inputs, ones, training=training)
 
-
 class Mod_LSTMCELL(LSTMCell):
+    """Cell class for the LSTM layer.
+    Following Arguments are present in the parent class LSTMCell, which 
+    have been used in this implementation. Reimplementation is done so 
+    that we can extract the complete hidden sequence h,c which cannot 
+    be obtained directly using the native LSTM implementation.
+    Args:
+        units: Positive integer, dimensionality of the output space.
+        activation: Activation function to use. Default: hyperbolic tangent
+            (`tanh`). If you pass `None`, no activation is applied (ie. "linear"
+            activation: `a(x) = x`).
+        recurrent_activation: Activation function to use for the recurrent step.
+            Default: sigmoid (`sigmoid`). If you pass `None`, no activation is applied
+            (ie. "linear" activation: `a(x) = x`).
+        use_bias: Boolean, (default `True`), whether the layer uses a bias vector.
+        kernel_initializer: Initializer for the `kernel` weights matrix, used for
+            the linear transformation of the inputs. Default: `glorot_uniform`.
+            recurrent_initializer: Initializer for the `recurrent_kernel` weights
+            matrix, used for the linear transformation of the recurrent state.
+            Default: `orthogonal`.
+        bias_initializer: Initializer for the bias vector. Default: `zeros`.
+        unit_forget_bias: Boolean (default `True`). If True, add 1 to the bias of
+            the forget gate at initialization. Setting it to true will also force
+            `bias_initializer="zeros"`. This is recommended in Jozefowicz et al.
+        kernel_regularizer: Regularizer function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_regularizer: Regularizer function applied to
+            the `recurrent_kernel` weights matrix. Default: `None`.
+        bias_regularizer: Regularizer function applied to the bias vector. Default:
+            `None`.
+        kernel_constraint: Constraint function applied to the `kernel` weights
+            matrix. Default: `None`.
+        recurrent_constraint: Constraint function applied to the `recurrent_kernel`
+            weights matrix. Default: `None`.
+        bias_constraint: Constraint function applied to the bias vector. Default:
+            `None`.
+        dropout: Float between 0 and 1. Fraction of the units to drop for the linear
+            transformation of the inputs. Default: 0.
+        recurrent_dropout: Float between 0 and 1. Fraction of the units to drop for
+            the linear transformation of the recurrent state. Default: 0.
+        implementation: Implementation mode, either 1 or 2.
+            Mode 1 will structure its operations as a larger number of smaller dot
+            products and additions, whereas mode 2 (default) will batch them into
+            fewer, larger operations. These modes will have different performance
+            profiles on different hardware and for different applications. Default: 2.
+    """
     def call(self, inputs, states, training=None):
+        """The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+            training: Python boolean indicating whether the layer should behave in
+                training mode or in inference mode. Only relevant when dropout or
+                recurrent_dropout is used.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        """
         self._dropout_mask = _generate_dropout_mask(K.ones_like(inputs), 0, training=training, count=4)
         self._recurrent_dropout_mask = _generate_dropout_mask(K.ones_like(states[0]), 0, training=training, count=4)
         
@@ -91,40 +163,93 @@ class Mod_LSTMCELL(LSTMCell):
             if training is None:
                 h._uses_learning_phase = True
         return tf.concat([h ,c_tm1, c], axis=-1), [h, c]
-    
+
 def customLSTM(dim):
+    """RNN applied over an implemented LSTM cell to output a
+    custom LSTM which can be used as a Keras Layer.
+    Args:
+        dim: defines the state size for the LSTM
+    Returns:
+        LSTM layer formed from Mod_LSTMCELL
+    """
     regularizer = tf.keras.regularizers.l1_l2(l1=1e-4, l2=1e-3)
     cell = Mod_LSTMCELL(dim, dropout=0.5, kernel_regularizer=regularizer, recurrent_regularizer=regularizer)
-    lstm_cell = RNN(cell, return_sequences=True)
-    return lstm_cell
+    lstm = RNN(cell, return_sequences=True)
+    return lstm
 
 
 class MultiviewGatedMemory(Layer):
+    """
+    Multi-view Gated Memory is the neural component that
+    stores a history of cross-view interactions over time. It
+    acts as a unifying memory for the memories in System of
+    LSTMs. This class has been implemented as a keras Layer and
+    overloads the functions of the Layer class.
+    state_size: size(s) of state(s) used by this cell.
+    It can be represented by an Integer, a TensorShape or a tuple of Integers
+    or TensorShapes.
+    """
     def __init__(self, mem_dim, **kwargs):
         self.state_size = mem_dim
         super(MultiviewGatedMemory, self).__init__(**kwargs)
 
     def build(self, input_shape):
+        """Creates the variables of the layer (optional, for subclass implementers).
+        This is a method that implementers of subclasses of `Layer` or `Model`
+        can override if they need a state-creation step in-between
+        layer instantiation and layer call.
+        This is typically used to create the weights of `Layer` subclasses.
+        Args:
+            input_shape: Instance of `TensorShape`, or list of instances of
+                `TensorShape` if the layer expects a list of inputs
+                (one instance per input).
+        """
+        # D_u
         self.chat = Sequential([Dense(128, activation='relu'),
                                 Dropout(rate=0.5),
                                 Dense(self.state_size, activation='tanh'),])
+        # D_gamma1
         self.gamma1 = Sequential([Dense(128, activation='relu'),
                                   Dropout(rate=0.5),
                                   Dense(self.state_size, activation='sigmoid'),])
+        # D_gamma2
         self.gamma2 = Sequential([Dense(128, activation='relu'),
                                   Dropout(rate=0.5),
                                   Dense(self.state_size, activation='sigmoid'),])
 
-    def call(self, step_in, states):
+    def call(self, inputs, states):
+        """The function that contains the logic for one RNN step calculation.
+        Args:
+            inputs: the input tensor, which is a slide from the overall RNN input by
+                the time dimension (usually the second dimension).
+            states: the state tensor from previous step, which has the same shape
+                as `(batch, state_size)`. In the case of timestep 0, it will be the
+                initial state user specified, or zero filled tensor otherwise.
+        Returns:
+            A tuple of two tensors:
+                1. output tensor for the current timestep, with size `output_size`.
+                2. state tensor for next step, which has the shape of `state_size`.
+        """
         prev_mem = states[0]
-        both = K.concatenate([step_in, prev_mem], axis=-1)
+        both = K.concatenate([inputs, prev_mem], axis=-1)
         g1 = self.gamma1(both)
         g2 = self.gamma2(both)
-        cHat = self.chat(step_in)
+        cHat = self.chat(inputs)
         step_out = g1 * prev_mem + g2 * cHat
         return step_out, [step_out]
     
     def get_config(self):
+        """Returns the config of the layer.
+        A layer config is a Python dictionary (serializable)
+        containing the configuration of a layer.
+        The same layer can be reinstantiated later
+        (without its trained weights) from this configuration.
+        The config of a layer does not include connectivity
+        information, nor the layer class name. These are handled
+        by `Network` (one layer of abstraction above).
+        Returns:
+            Python dictionary.
+        """
         config = super().get_config().copy()
         config.update({
             'state_size': self.state_size,
@@ -133,21 +258,37 @@ class MultiviewGatedMemory(Layer):
 
 
 def MFN_unimodal(input_shapes, output_classes, mem_size=256):
+    """Returns the unimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 1 containing a tuple of 
+            (seq_length, feature_size) for one modality
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    """
     tot_dim = 0
 
     maxlen, dim0 = input_shapes[0]
     tot_dim += dim0
     input0 = Input(shape=(maxlen, dim0), dtype='float64')
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
     hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
     h = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    # Combine all the modalities of current and previous time steps
     cStar = Lambda(lambda x: x[:,:,dim0:])(hc0)
 
+    # the self attention network referred to as DMAN
     attention = Sequential([
         TimeDistributed(Dense(256 ,activation='relu')),
         Dropout(rate=0.5),
         TimeDistributed(Dense(2*tot_dim ,activation='softmax'))
     ])(cStar)
 
+    # attention applied to the memories
     attended = Multiply()([cStar, attention])
     cell = MultiviewGatedMemory(mem_size)
     lstm_cell = RNN(cell)
@@ -155,8 +296,12 @@ def MFN_unimodal(input_shapes, output_classes, mem_size=256):
 
     last_hs = Lambda(lambda x: x[:,-1,:])(h)
 
+    # this is treated as the final output given by MFN
+    # to be used for classification
     final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
 
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
     output = Sequential([
         Dense(128 ,activation='relu'),
         Dropout(rate=0.5),
@@ -167,12 +312,25 @@ def MFN_unimodal(input_shapes, output_classes, mem_size=256):
     return model
 
 def MFN_bimodal(input_shapes, output_classes, mem_size=256):
+    """Returns the bimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 2 containing tuples of 
+            (seq_length, feature_size) for 2 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    """
     tot_dim = 0
 
     maxlen, dim0 = input_shapes[0]
     tot_dim += dim0
     input0 = Input(shape=(maxlen, dim0), dtype='float64')
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
     hc0 = customLSTM(dim0)(input0)
+    # Split the above states from the concatenated result from LSTM
     h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)
     c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
     c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
@@ -180,21 +338,25 @@ def MFN_bimodal(input_shapes, output_classes, mem_size=256):
     maxlen, dim1 = input_shapes[1]
     tot_dim += dim1
     input1 = Input(shape=(maxlen, dim1), dtype='float64')
+    # Same procedure is followed for each modality
     hc1 = customLSTM(dim1)(input1)
     h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
     c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
     c_new1 = Lambda(lambda x: x[:,:,2*dim1:])(hc1)
 
+    # Combine all the modalities of current and previous time steps
     c_prev = Concatenate(axis=-1)([c_prev0, c_prev1])
     c_new = Concatenate(axis=-1)([c_new0, c_new1])
     cStar = Concatenate(axis=-1)([c_prev, c_new])
 
+    # the self attention network referred to as DMAN
     attention = Sequential([
         TimeDistributed(Dense(256 ,activation='relu')),
         Dropout(rate=0.5),
         TimeDistributed(Dense(2*tot_dim ,activation='softmax'))
     ])(cStar)
 
+    # attention applied to the memories
     attended = Multiply()([cStar, attention])
     cell = MultiviewGatedMemory(mem_size)
     lstm_cell = RNN(cell)
@@ -203,8 +365,12 @@ def MFN_bimodal(input_shapes, output_classes, mem_size=256):
     h = Concatenate(axis=-1)([h0, h1])
     last_hs = Lambda(lambda x: x[:,-1,:])(h)
 
+    # this is treated as the final output given by MFN
+    # to be used for classification
     final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
 
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
     output = Sequential([
         Dense(128 ,activation='relu'),
         Dropout(rate=0.5),
@@ -215,19 +381,33 @@ def MFN_bimodal(input_shapes, output_classes, mem_size=256):
     return model
 
 def MFN_trimodal(input_shapes, output_classes, mem_size=256):
+    """Returns the trimodal version of the Memory Fusion model.
+    Args:
+        input_shapes: list of length 3 containing tuples of 
+            (seq_length, feature_size) for 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    """
     tot_dim = 0
 
     maxlen, dim0 = input_shapes[0]
     tot_dim += dim0
     input0 = Input(shape=(maxlen, dim0), dtype='float64')
+    # get the hidden states, memory states and the previous memory
+    # states from the LSTM for a single modality
     hc0 = customLSTM(dim0)(input0)
-    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)
+    # Split the above states from the concatenated result from LSTM
+    h0 = Lambda(lambda x: x[:,:,:dim0])(hc0)                
     c_prev0 = Lambda(lambda x: x[:,:,dim0:2*dim0])(hc0)
     c_new0 = Lambda(lambda x: x[:,:,2*dim0:])(hc0)
 
     maxlen, dim1 = input_shapes[1]
     tot_dim += dim1
     input1 = Input(shape=(maxlen, dim1), dtype='float64')
+    # Same procedure is followed for each modality
     hc1 = customLSTM(dim1)(input1)
     h1 = Lambda(lambda x: x[:,:,:dim1])(hc1)
     c_prev1 = Lambda(lambda x: x[:,:,dim1:2*dim1])(hc1)
@@ -236,21 +416,25 @@ def MFN_trimodal(input_shapes, output_classes, mem_size=256):
     maxlen, dim2 = input_shapes[2]
     tot_dim += dim2
     input2 = Input(shape=(maxlen, dim2), dtype='float64')
+    # Same procedure is followed for each modality
     hc2 = customLSTM(dim2)(input2)
     h2 = Lambda(lambda x: x[:,:,:dim2])(hc2)
     c_prev2 = Lambda(lambda x: x[:,:,dim2:2*dim2])(hc2)
     c_new2 = Lambda(lambda x: x[:,:,2*dim2:])(hc2)
 
+    # Combine all the modalities of current and previous time steps
     c_prev = Concatenate(axis=-1)([c_prev0, c_prev1, c_prev2])
     c_new = Concatenate(axis=-1)([c_new0, c_new1, c_new2])
     cStar = Concatenate(axis=-1)([c_prev, c_new])
 
+    # the self attention network referred to as DMAN
     attention = Sequential([
         TimeDistributed(Dense(256 ,activation='relu')),
         Dropout(rate=0.5),
         TimeDistributed(Dense(2*tot_dim ,activation='softmax'))
     ])(cStar)
 
+    # attention applied to the memories
     attended = Multiply()([cStar, attention])
     cell = MultiviewGatedMemory(mem_size)
     lstm_cell = RNN(cell)
@@ -259,8 +443,12 @@ def MFN_trimodal(input_shapes, output_classes, mem_size=256):
     h = Concatenate(axis=-1)([h0, h1, h2])
     last_hs = Lambda(lambda x: x[:,-1,:])(h)
 
-    final = Concatenate(axis=-1)([last_hs, mem]) # Output of MFN
+    # this is treated as the final output given by MFN
+    # to be used for classification
+    final = Concatenate(axis=-1)([last_hs, mem])
 
+    # Dense network applied to MFN output 
+    # Softmax classifier (with 1 hidden layer)
     output = Sequential([
         Dense(128 ,activation='relu'),
         Dropout(rate=0.5),
@@ -271,6 +459,19 @@ def MFN_trimodal(input_shapes, output_classes, mem_size=256):
     return model
 
 def MFN(input_shapes, output_classes, mem_size=256):
+    """This is just a function to abstract between the number
+    of modalities to be provided to MFN.
+    MFN can be extended to an arbitrary number of modalities.
+    Here implementation of upto 3 modalities has been done.
+    Args:
+        input_shapes: list of length atmost 3 containing tuples 
+            of (seq_length, feature_size) for upto 3 modalities
+        output_classes: the number of output classes
+        mem_size: the size of states of MultiviewGatedMemory
+    Returns:
+        an instance of keras Model class with the required 
+            architecture defined. 
+    """
     k = len(input_shapes)
     assert k in [1, 2, 3]
     if k == 1:
