@@ -218,7 +218,6 @@ def plot_confusion_matrix(classes, mat, normalize=True, cmap=plt.cm.Blues, filen
         if normalize:
                 cm = cm.astype(&#39;float&#39;) / np.sum(cm, axis=1, keepdims=True)
                 title = title.replace(&#39;without&#39;, &#39;with&#39;)
-        plt.clf()    
         fig, ax = plt.subplots(figsize=(20,10))
         ax.set_title(title, y=-0.06, fontsize=66/k)
         ax.xaxis.set_ticks_position(&#39;top&#39;)
@@ -241,6 +240,7 @@ def plot_confusion_matrix(classes, mat, normalize=True, cmap=plt.cm.Blues, filen
         plt.xlabel(&#39;Predicted label&#39;, fontsize=22)
         plt.tight_layout()
         plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)
+        plt.show()
         
 def plot_clf_report(classes, plotMat, support, cmap=plt.cm.Blues, filename=&#39;classification_report&#39;):
         &#34;&#34;&#34;This function plots the classification report as an image, using the 
@@ -259,7 +259,6 @@ def plot_clf_report(classes, plotMat, support, cmap=plt.cm.Blues, filename=&#39;
         title = &#39;Classification Report&#39;
         xticklabels = [&#39;Precision&#39;, &#39;Recall&#39;, &#39;F1-score&#39;]
         yticklabels = [&#39;{0} ({1})&#39;.format(classes[idx], sup) for idx, sup in enumerate(support)]
-        plt.clf()
         fig, ax = plt.subplots(figsize=(22,12))
         ax.set_title(title, y=-0.06, fontsize=22)
         ax.xaxis.set_ticks_position(&#39;top&#39;)
@@ -283,6 +282,7 @@ def plot_clf_report(classes, plotMat, support, cmap=plt.cm.Blues, filename=&#39;
         plt.ylabel(&#39;Classes&#39;,fontsize=22)
         plt.tight_layout()
         plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)
+        plt.show()
         
 def plot_tag_scores(classes, scores, filename=&#39;tag_scores&#39;):
         &#34;&#34;&#34;This function plots the histogram for tag scores and saves the image in 
@@ -294,7 +294,6 @@ def plot_tag_scores(classes, scores, filename=&#39;tag_scores&#39;):
         Returns:
                 No return value. Shows and saves the tag scores plot.
         &#34;&#34;&#34;
-        plt.clf()
         width = 0.45
         fig, ax = plt.subplots(figsize=(20,10))
         ax.xaxis.set_tick_params(labelsize=18, rotation=25)
@@ -519,7 +518,6 @@ the current working directory.</p>
         title = &#39;Classification Report&#39;
         xticklabels = [&#39;Precision&#39;, &#39;Recall&#39;, &#39;F1-score&#39;]
         yticklabels = [&#39;{0} ({1})&#39;.format(classes[idx], sup) for idx, sup in enumerate(support)]
-        plt.clf()
         fig, ax = plt.subplots(figsize=(22,12))
         ax.set_title(title, y=-0.06, fontsize=22)
         ax.xaxis.set_ticks_position(&#39;top&#39;)
@@ -542,7 +540,8 @@ the current working directory.</p>
         plt.xlabel(&#39;Metrics&#39;,fontsize=22)
         plt.ylabel(&#39;Classes&#39;,fontsize=22)
         plt.tight_layout()
-        plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)</code></pre>
+        plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)
+        plt.show()</code></pre>
 </details>
 </dd>
 <dt id="utils_nlp.plot_confusion_matrix"><code class="name flex">
@@ -592,7 +591,6 @@ matrix (rows sum to 1 or not)</dd>
         if normalize:
                 cm = cm.astype(&#39;float&#39;) / np.sum(cm, axis=1, keepdims=True)
                 title = title.replace(&#39;without&#39;, &#39;with&#39;)
-        plt.clf()    
         fig, ax = plt.subplots(figsize=(20,10))
         ax.set_title(title, y=-0.06, fontsize=66/k)
         ax.xaxis.set_ticks_position(&#39;top&#39;)
@@ -614,7 +612,8 @@ matrix (rows sum to 1 or not)</dd>
         plt.ylabel(&#39;True label&#39;,fontsize=22)
         plt.xlabel(&#39;Predicted label&#39;, fontsize=22)
         plt.tight_layout()
-        plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)</code></pre>
+        plt.savefig(filename+&#39;.png&#39;, bbox_inches=&#34;tight&#34;, transparent=True)
+        plt.show()</code></pre>
 </details>
 </dd>
 <dt id="utils_nlp.plot_tag_scores"><code class="name flex">
@@ -648,7 +647,6 @@ the current working directory.</p>
         Returns:
                 No return value. Shows and saves the tag scores plot.
         &#34;&#34;&#34;
-        plt.clf()
         width = 0.45
         fig, ax = plt.subplots(figsize=(20,10))
         ax.xaxis.set_tick_params(labelsize=18, rotation=25)
