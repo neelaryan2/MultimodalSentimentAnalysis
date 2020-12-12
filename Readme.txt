@@ -26,12 +26,41 @@ How to run the code?
 
 		- Run the script
 	-MOSEI
-		- To run trimodal hfusion  for iemocap upload the script 'trimodal-fusion-for-mosei.py' to kaggle 
+		- To run trimodal hfusion  for mosei upload the script 'trimodal-fusion-for-mosei.py' to kaggle 
 
 		- Import the dataset from:  https://www.kaggle.com/alirehan/mosei-dataset-3way
 
 		- Run the script
 
+- Bimodal
+	- IEMOCAP 
+		- To run bimodal model for iemocap dataset upload the script 'bimodal_iemocap.py' to kaggle
+		
+		- Import the dataset from: https://www.kaggle.com/alirehan/multimodal-sentiment
+		
+		- Run the script
+	- MOSEI
+		- To run bimodal model for mosei dataset upload the script 'bimodal_mosei.py' to kaggle
+		
+		- Import the dataset from: https://www.kaggle.com/alirehan/mosei-dataset-3way
+		
+		- Run the script
+
+- Unimodal
+	- IEMOCAP
+		- To run the unimodal model for iemocap dataset upload the script 'unimodal_iemocap.py' to kaggle
+		
+		- Import the dataset from: https://www.kaggle.com/alirehan/multimodal-sentiment
+		
+		- Run the script
+	- MOSEI
+		- To run the unimodal mode (and demo) for mosei dataset upload the script 'unimodal_mosei.py' to kaggle
+		
+		- Import the dataset from: https://www.kaggle.com/alirehan/mosei-dataset-3way
+		
+		- Import the word2vec embeddings from: https://www.kaggle.com/pkugoodspeed/nlpword2vecembeddingspretrained
+		
+		- Run the script
 
 
 2. Memory Fusion Network (MFN)
