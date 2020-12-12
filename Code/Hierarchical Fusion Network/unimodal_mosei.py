@@ -338,7 +338,12 @@ def plot_tag_scores(classes, scores, normalize=True):
 # In[6]:
 
 
-if __name__=='__main__':
+def main_func():
+    '''
+    Contains variable stmt, change it to see the output of any example sentence. Runs and trains the model, prints and saves the confusion matrix,
+    tags scores, reports
+    Args: None
+	'''
     NUM_LABELS=3 #MOSEI has 3 labels
     result, test_label, model = Unimodal_text()
     
@@ -388,3 +393,5 @@ if __name__=='__main__':
     plot_confusion_matrix(classes, cm)
     plot_tag_scores(classes, scores)
 
+if __name__=='__main__':
+	main_func()

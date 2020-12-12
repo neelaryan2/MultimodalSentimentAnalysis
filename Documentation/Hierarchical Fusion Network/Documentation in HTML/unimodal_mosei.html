@@ -366,7 +366,12 @@ def plot_tag_scores(classes, scores, normalize=True):
 # In[6]:
 
 
-if __name__==&#39;__main__&#39;:
+def main_func():
+    &#39;&#39;&#39;
+    Contains variable stmt, change it to see the output of any example sentence. Runs and trains the model, prints and saves the confusion matrix,
+    tags scores, reports
+    Args: None
+        &#39;&#39;&#39;
     NUM_LABELS=3 #MOSEI has 3 labels
     result, test_label, model = Unimodal_text()
     
@@ -414,7 +419,10 @@ if __name__==&#39;__main__&#39;:
     scores = get_scores(y_true, y_pred, classes)
     plot_clf_report(class_names, report, support)
     plot_confusion_matrix(classes, cm)
-    plot_tag_scores(classes, scores)</code></pre>
+    plot_tag_scores(classes, scores)
+
+if __name__==&#39;__main__&#39;:
+        main_func()</code></pre>
 </details>
 </section>
 <section>
@@ -697,6 +705,73 @@ gloveModel: dictionary containing key, value pairs of word and its embedding as 
     return gloveModel</code></pre>
 </details>
 </dd>
+<dt id="unimodal_mosei.main_func"><code class="name flex">
+<span>def <span class="ident">main_func</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Contains variable stmt, change it to see the output of any example sentence. Runs and trains the model, prints and saves the confusion matrix,
+tags scores, reports
+Args: None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main_func():
+    &#39;&#39;&#39;
+    Contains variable stmt, change it to see the output of any example sentence. Runs and trains the model, prints and saves the confusion matrix,
+    tags scores, reports
+    Args: None
+        &#39;&#39;&#39;
+    NUM_LABELS=3 #MOSEI has 3 labels
+    result, test_label, model = Unimodal_text()
+    
+    # Load the word embedding model at &#34;../input/nlpword2vecembeddingspretrained/glove.6B.300d.txt&#34;
+    glovemod=loadGloveModel(&#34;../input/nlpword2vecembeddingspretrained/glove.6B.300d.txt&#34;)
+    
+    # Demo of trained model in action
+    stmt = &#34;I am disappointed and angry I hate the people there Their attitude is irritating They should be ashamed&#34;#negative
+    stmt = &#34;Everything is so pretty and bright and happy I love it here I wish every day was just like this wonderful and joyous day&#34;#positive
+    stmt = &#34;I am annoyed and disappointed that he had to leave us and we will all miss him desparately but I am happy he is getting to live his dream&#34;#both
+    words = stmt.lower().split() #list of words in the statement
+    inp = []
+    l = len(words)
+    for i in range(98):#98 is the sequence length for the model
+        if i&lt;len(words):
+            inp.append(glovemod[words[i]])
+        else:
+            inp.append(np.zeros((300)))#padding to make length 98
+    inp = np.array(inp)
+    inp = [inp]
+    inp = np.array(inp)
+    print(inp.shape)#(1 annotation, 98 seq length, 300 embedding size)
+    
+    op = model.predict(inp)
+    op =np.argmax(op,axis=-1)#get predicted label for each word of annotation
+    print(words)
+    print(op[0][0:l])#Indexed so as to not show o/p for padding token
+    # Label 1: positive sentiment
+    # Label 2: negative sentiment
+    
+    #Start of plotting code
+    y_true=[]
+    y_pred=[]
+
+    #y_true is list of true values; y_pred is list of predicted values
+    for i in range(result.shape[0]):
+        for j in range(result.shape[1]):
+            if np.argmax(test_label[i,j] )!=0 and np.argmax(result[i,j] )!=0:
+                y_true.append(np.argmax(test_label[i,j] ))
+                y_pred.append(np.argmax(result[i,j] ))
+    
+    classes=[1,2]
+    class_names, report, support = get_report(y_true, y_pred, classes)
+    cm = confusion_matrix(y_true, y_pred, labels=classes)
+    scores = get_scores(y_true, y_pred, classes)
+    plot_clf_report(class_names, report, support)
+    plot_confusion_matrix(classes, cm)
+    plot_tag_scores(classes, scores)</code></pre>
+</details>
+</dd>
 <dt id="unimodal_mosei.plot_clf_report"><code class="name flex">
 <span>def <span class="ident">plot_clf_report</span></span>(<span>classes, plotMat, support, cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;)</span>
 </code></dt>
@@ -905,6 +980,7 @@ the current working directory.</p>
 <li><code><a title="unimodal_mosei.get_report" href="#unimodal_mosei.get_report">get_report</a></code></li>
 <li><code><a title="unimodal_mosei.get_scores" href="#unimodal_mosei.get_scores">get_scores</a></code></li>
 <li><code><a title="unimodal_mosei.loadGloveModel" href="#unimodal_mosei.loadGloveModel">loadGloveModel</a></code></li>
+<li><code><a title="unimodal_mosei.main_func" href="#unimodal_mosei.main_func">main_func</a></code></li>
 <li><code><a title="unimodal_mosei.plot_clf_report" href="#unimodal_mosei.plot_clf_report">plot_clf_report</a></code></li>
 <li><code><a title="unimodal_mosei.plot_confusion_matrix" href="#unimodal_mosei.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
 <li><code><a title="unimodal_mosei.plot_tag_scores" href="#unimodal_mosei.plot_tag_scores">plot_tag_scores</a></code></li>
