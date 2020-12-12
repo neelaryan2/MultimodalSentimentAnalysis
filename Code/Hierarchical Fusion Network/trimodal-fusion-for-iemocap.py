@@ -7,18 +7,12 @@ import keras
 from keras import backend as K
 from keras.layers.core import Lambda
 from keras.engine.topology import Layer
-from keras.layers.convolutional import Conv1D
-from keras.models import Sequential
 from sklearn.metrics import classification_report
 from matplotlib import pyplot as plt
-
-from keras.layers.core import Flatten
 from keras.callbacks import EarlyStopping
-
 import pickle
 from keras.layers.merge import Multiply,Concatenate
 from sklearn.metrics import classification_report
-
 from sklearn.metrics import accuracy_score
 from keras.optimizers import Adam
 from sklearn import metrics
@@ -27,14 +21,9 @@ from keras.callbacks import Callback
 from keras.models import Model
 from keras.layers.wrappers import TimeDistributed, Bidirectional
 from keras.layers import GRU,LSTM,Concatenate,Dropout,Masking,Input,Dense,Activation
-from keras.layers.pooling import AveragePooling1D,MaxPooling1D
 import sys
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import precision_recall_fscore_support
-from keras.layers.core import Reshape
-from keras.backend import shape
-from keras.utils import plot_model
-
 
 
 
